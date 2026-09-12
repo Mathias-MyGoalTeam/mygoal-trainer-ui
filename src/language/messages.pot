@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: src/components/AppNavigation.vue:21
+#: src/views/Dashboard.vue:32
+msgid "Dashboard"
+msgstr ""
+
+#: src/components/AppNavigation.vue:26
+#: src/components/AppNavigation.vue:95
+msgid "Menü schließen"
+msgstr ""
+
+#: src/components/AppNavigation.vue:26
+msgid "Menü öffnen"
+msgstr ""
+
+#: src/components/AppNavigation.vue:91
+msgid "Hauptnavigation"
+msgstr ""
+
+#: src/views/Dashboard.vue:22
+msgid "Zugewiesene Athleten"
+msgstr ""
+
+#: src/views/Dashboard.vue:23
+msgid "Anstehende Einheiten"
+msgstr ""
+
+#: src/views/Dashboard.vue:24
+msgid "Trainingspläne"
+msgstr ""
+
+#: src/views/Dashboard.vue:25
+msgid "Nachrichten"
+msgstr ""
+
+#: src/views/Dashboard.vue:35
+msgid "Dashboard-Widgets"
+msgstr ""
