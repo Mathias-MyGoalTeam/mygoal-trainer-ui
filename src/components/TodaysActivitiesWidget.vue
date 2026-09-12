@@ -20,6 +20,7 @@ import { useGettext } from 'vue3-gettext'
 import { activityIcons } from '@/composables/activityIcons'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
+import { DASHBOARD_WIDGET_PREVIEW_LIMIT } from '@/composables/dashboardWidgetPreview'
 import { useDashboardStore } from '@/stores/dashboard'
 
 defineOptions({ name: 'TodaysActivitiesWidget' })
@@ -28,6 +29,22 @@ const { $gettext } = useGettext()
 const dashboardStore = useDashboardStore()
 
 const activityCount = computed(() => dashboardStore.summary?.todaysActivitiesCount)
+
+// Capped to the shared dashboard preview limit so this list is never longer
+// than its siblings (Athlete Overview, Pending Video Reviews, Messages) -
+// see dashboardWidgetPreview.ts.
+const visibleActivities = computed(() =>
+  dashboardStore.todaysActivities.slice(0, DASHBOARD_WIDGET_PREVIEW_LIMIT),
+)
+
+// Fills the list up to the shared preview limit with empty placeholder
+// slots when fewer activities are scheduled than the limit, so the card
+// reaches the same height as its siblings even with a short list.
+const placeholderCount = computed(() =>
+  visibleActivities.value.length === 0
+    ? 0
+    : DASHBOARD_WIDGET_PREVIEW_LIMIT - visibleActivities.value.length,
+)
 </script>
 
 <template>
@@ -42,12 +59,8 @@ const activityCount = computed(() => dashboardStore.summary?.todaysActivitiesCou
       {{ $gettext('Lädt…') }}
     </p>
 
-    <ul v-if="dashboardStore.todaysActivities.length > 0" class="todays-activities__list">
-      <li
-        v-for="activity in dashboardStore.todaysActivities"
-        :key="activity.id"
-        class="todays-activities__item"
-      >
+    <ul v-if="visibleActivities.length > 0" class="todays-activities__list">
+      <li v-for="activity in visibleActivities" :key="activity.id" class="todays-activities__item">
         <img
           class="todays-activities__icon"
           :src="activityIcons[activity.activityKind]"
@@ -81,6 +94,12 @@ const activityCount = computed(() => dashboardStore.summary?.todaysActivitiesCou
           </svg>
         </span>
       </li>
+      <li
+        v-for="n in placeholderCount"
+        :key="`placeholder-${n}`"
+        class="todays-activities__item todays-activities__item--placeholder"
+        aria-hidden="true"
+      />
     </ul>
 
     <!-- Non-functional placeholder: this will eventually link to the real
@@ -125,6 +144,11 @@ const activityCount = computed(() => dashboardStore.summary?.todaysActivitiesCou
   display: flex;
   align-items: center;
   gap: $space-12;
+  min-height: $space-48;
+}
+
+.todays-activities__item--placeholder {
+  visibility: hidden;
 }
 
 .todays-activities__icon {

@@ -5,6 +5,7 @@ export interface DashboardSummary {
   assignedAthletesCount: number
   pendingVideoReviewsCount: number
   todaysActivitiesCount: number
+  recentMessagesCount: number
 }
 
 // Preview entry for the Athlete Overview dashboard widget (S02-T4).
@@ -30,6 +31,19 @@ export interface PendingVideoReviewEntry {
   athleteName: string
   status: string
   thumbnailUrl?: string
+}
+
+// Preview entry for the Messages dashboard widget. All fields are display
+// placeholders only; conversation state and messaging workflows are not
+// implemented yet. `avatarUrl` is optional and expected to stay undefined
+// in Mocked Mode; the widget falls back to a generic placeholder image
+// when it's missing (real profile images come later from user data).
+export interface RecentMessageEntry {
+  id: string
+  athleteName: string
+  preview: string
+  timestamp: string
+  avatarUrl?: string
 }
 
 // Activity type/category, matching mygoal-webapp-ui's ActivityKind enum

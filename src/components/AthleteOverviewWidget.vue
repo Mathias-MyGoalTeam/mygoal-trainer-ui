@@ -15,13 +15,15 @@ import { useGettext } from 'vue3-gettext'
 import avatarPlaceholder from '@/assets/img/avatar-placeholder.png'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
+import { DASHBOARD_WIDGET_PREVIEW_LIMIT } from '@/composables/dashboardWidgetPreview'
 import { useDashboardStore } from '@/stores/dashboard'
 
 defineOptions({ name: 'AthleteOverviewWidget' })
 
-// How many athletes to show before the card needs expanding - a UI display
-// preference, not domain data (the actual roster always comes from the repo).
-const PREVIEW_LIMIT = 4
+// How many athletes to show before the card needs expanding - shared with
+// the other dashboard widgets so their collapsed list lengths (and thus
+// card heights) line up.
+const PREVIEW_LIMIT = DASHBOARD_WIDGET_PREVIEW_LIMIT
 
 const { $gettext } = useGettext()
 const dashboardStore = useDashboardStore()
@@ -38,6 +40,16 @@ const visibleAthletes = computed(() =>
 // count - the two are expected to match, but the list itself is the source
 // of truth for "how many more can be shown".
 const hiddenCount = computed(() => Math.max(dashboardStore.athletes.length - PREVIEW_LIMIT, 0))
+
+// Fills the collapsed preview up to PREVIEW_LIMIT rows with empty
+// placeholder slots when fewer athletes are assigned than the limit, so
+// the card reaches the same height as its siblings even with a short
+// roster. Not used while expanded - the full roster defines its own height.
+const placeholderCount = computed(() =>
+  isExpanded.value || visibleAthletes.value.length === 0
+    ? 0
+    : PREVIEW_LIMIT - visibleAthletes.value.length,
+)
 
 function expand() {
   isExpanded.value = true
@@ -70,6 +82,12 @@ function collapse() {
         <span class="athlete-overview__name">{{ athlete.name }}</span>
         <span class="athlete-overview__status">{{ athlete.status }}</span>
       </li>
+      <li
+        v-for="n in placeholderCount"
+        :key="`placeholder-${n}`"
+        class="athlete-overview__item athlete-overview__item--placeholder"
+        aria-hidden="true"
+      />
     </ul>
 
     <BaseButton
@@ -127,6 +145,11 @@ function collapse() {
   display: flex;
   align-items: center;
   gap: $space-12;
+  min-height: $space-48;
+}
+
+.athlete-overview__item--placeholder {
+  visibility: hidden;
 }
 
 .athlete-overview__avatar {

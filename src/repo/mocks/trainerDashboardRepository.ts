@@ -3,6 +3,7 @@ import type {
   AthleteOverviewEntry,
   DashboardSummary,
   PendingVideoReviewEntry,
+  RecentMessageEntry,
   ScheduledActivityEntry,
 } from '@/types/dashboard'
 
@@ -12,6 +13,7 @@ const dashboardSummary: DashboardSummary = {
   assignedAthletesCount: 8,
   pendingVideoReviewsCount: 3,
   todaysActivitiesCount: 5,
+  recentMessagesCount: 4,
 }
 
 // Full mocked roster for the Athlete Overview widget (S02-T4). Matches
@@ -41,6 +43,37 @@ const pendingVideoReviews: PendingVideoReviewEntry[] = [
   { id: 'review-1', athleteName: 'Lena Hoffmann', status: 'Ausstehend' },
   { id: 'review-2', athleteName: 'Jonas Weber', status: 'Ausstehend' },
   { id: 'review-3', athleteName: 'Sophie Bauer', status: 'In Prüfung' },
+]
+
+// Mocked list for the Messages widget. Conversation state and sending
+// messages are intentionally out of scope; these entries only provide the
+// dashboard preview until a real messaging model is introduced. `avatarUrl`
+// is left unset so the widget falls back to a generic placeholder avatar.
+const recentMessages: RecentMessageEntry[] = [
+  {
+    id: 'message-1',
+    athleteName: 'Lena Hoffmann',
+    preview: 'Das Training heute lief richtig gut!',
+    timestamp: '2h ago',
+  },
+  {
+    id: 'message-2',
+    athleteName: 'Jonas Weber',
+    preview: 'Kannst du bitte den Plan für nächste Woche prüfen?',
+    timestamp: '4h ago',
+  },
+  {
+    id: 'message-3',
+    athleteName: 'Sophie Bauer',
+    preview: 'Ich fühle mich wieder fit für das nächste Training.',
+    timestamp: 'Gestern',
+  },
+  {
+    id: 'message-4',
+    athleteName: 'Mara Vogel',
+    preview: 'Danke für dein Feedback zum letzten Lauf!',
+    timestamp: 'Gestern',
+  },
 ]
 
 // Mocked list for the Today's Activities widget (S03-T1, AP-20). Matches
@@ -95,6 +128,9 @@ export const mockTrainerDashboardRepository: TrainerDashboardRepository = {
   },
   async getPendingVideoReviews() {
     return pendingVideoReviews
+  },
+  async getRecentMessages() {
+    return recentMessages
   },
   async getTodaysActivities() {
     return todaysActivities

@@ -1,13 +1,11 @@
 <script setup lang="ts">
 // Dashboard view wired to TrainerDashboardRepository (mock) for widget
-// data (S02-T3/T4/T5, S03-T1). "Assigned Athletes", "Pending Video Reviews",
-// and "Today's Activities" are now dedicated widgets; "Messages" remains
-// a title-only placeholder for now - no repository field for it yet.
-import { computed, onMounted } from 'vue'
+// data (S02-T3/T4/T5, S03-T1). Each dashboard card is a dedicated widget.
+import { onMounted } from 'vue'
 import { useGettext } from 'vue3-gettext'
 
 import AthleteOverviewWidget from '@/components/AthleteOverviewWidget.vue'
-import BaseCard from '@/components/BaseCard.vue'
+import MessagesWidget from '@/components/MessagesWidget.vue'
 import PendingVideoReviewsWidget from '@/components/PendingVideoReviewsWidget.vue'
 import TodaysActivitiesWidget from '@/components/TodaysActivitiesWidget.vue'
 import { useDashboardStore } from '@/stores/dashboard'
@@ -16,21 +14,8 @@ import { useDashboardStore } from '@/stores/dashboard'
 // satisfying the vue/multi-word-component-names lint rule.
 defineOptions({ name: 'DashboardPage' })
 
-interface DashboardWidget {
-  id: string
-  title: string
-  value?: number
-}
-
 const { $gettext } = useGettext()
 const dashboardStore = useDashboardStore()
-
-const widgets = computed<DashboardWidget[]>(() => [
-  {
-    id: 'messages',
-    title: $gettext('Nachrichten'),
-  },
-])
 
 onMounted(async () => {
   await dashboardStore.loadSummary()
@@ -47,17 +32,7 @@ onMounted(async () => {
       <AthleteOverviewWidget class="dashboard__widget" />
       <PendingVideoReviewsWidget class="dashboard__widget" />
       <TodaysActivitiesWidget class="dashboard__widget" />
-
-      <BaseCard v-for="widget in widgets" :key="widget.id" class="dashboard__widget">
-        <h2 class="dashboard__widget-title">{{ widget.title }}</h2>
-        <p v-if="widget.value !== undefined" class="dashboard__widget-value">{{ widget.value }}</p>
-        <p
-          v-else-if="dashboardStore.isLoading"
-          class="dashboard__widget-value dashboard__widget-value--loading"
-        >
-          {{ $gettext('Lädt…') }}
-        </p>
-      </BaseCard>
+      <MessagesWidget class="dashboard__widget" />
     </section>
   </div>
 </template>
@@ -93,20 +68,4 @@ onMounted(async () => {
   align-items: start;
 }
 
-.dashboard__widget-title {
-  @include typo('h2', $font-family-base, $font-weight-semibold);
-  margin: 0;
-  color: $color-neutral-900;
-}
-
-.dashboard__widget-value {
-  @include typo('h1', $font-family-base, $font-weight-bold);
-  margin: $space-8 0 0;
-  color: $color-orange-600;
-}
-
-.dashboard__widget-value--loading {
-  @include typo('body', $font-family-base, $font-weight-regular);
-  color: $color-neutral-400;
-}
 </style>

@@ -17,6 +17,7 @@ import { useGettext } from 'vue3-gettext'
 
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
+import { DASHBOARD_WIDGET_PREVIEW_LIMIT } from '@/composables/dashboardWidgetPreview'
 import { useDashboardStore } from '@/stores/dashboard'
 
 defineOptions({ name: 'PendingVideoReviewsWidget' })
@@ -25,6 +26,22 @@ const { $gettext } = useGettext()
 const dashboardStore = useDashboardStore()
 
 const reviewCount = computed(() => dashboardStore.summary?.pendingVideoReviewsCount)
+
+// Capped to the shared dashboard preview limit so this list is never longer
+// than its siblings (Athlete Overview, Today's Activities, Messages) - see
+// dashboardWidgetPreview.ts.
+const visibleReviews = computed(() =>
+  dashboardStore.pendingVideoReviews.slice(0, DASHBOARD_WIDGET_PREVIEW_LIMIT),
+)
+
+// Fills the list up to the shared preview limit with empty placeholder
+// slots when fewer reviews are pending than the limit, so the card reaches
+// the same height as its siblings even with a short list.
+const placeholderCount = computed(() =>
+  visibleReviews.value.length === 0
+    ? 0
+    : DASHBOARD_WIDGET_PREVIEW_LIMIT - visibleReviews.value.length,
+)
 </script>
 
 <template>
@@ -39,12 +56,8 @@ const reviewCount = computed(() => dashboardStore.summary?.pendingVideoReviewsCo
       {{ $gettext('Lädt…') }}
     </p>
 
-    <ul v-if="dashboardStore.pendingVideoReviews.length > 0" class="pending-reviews__list">
-      <li
-        v-for="review in dashboardStore.pendingVideoReviews"
-        :key="review.id"
-        class="pending-reviews__item"
-      >
+    <ul v-if="visibleReviews.length > 0" class="pending-reviews__list">
+      <li v-for="review in visibleReviews" :key="review.id" class="pending-reviews__item">
         <!-- Video thumbnail placeholder: generic play icon (shape adapted
              from mygoal-webapp-ui's src/assets/svg/icons/play.svg) over a
              neutral box, standing in for the real video thumbnail. -->
@@ -72,6 +85,12 @@ const reviewCount = computed(() => dashboardStore.summary?.pendingVideoReviewsCo
         <span class="pending-reviews__athlete">{{ review.athleteName }}</span>
         <span class="pending-reviews__status">{{ review.status }}</span>
       </li>
+      <li
+        v-for="n in placeholderCount"
+        :key="`placeholder-${n}`"
+        class="pending-reviews__item pending-reviews__item--placeholder"
+        aria-hidden="true"
+      />
     </ul>
 
     <!-- Non-functional placeholder: the full review list is a separate,
@@ -116,6 +135,11 @@ const reviewCount = computed(() => dashboardStore.summary?.pendingVideoReviewsCo
   display: flex;
   align-items: center;
   gap: $space-12;
+  min-height: $space-48;
+}
+
+.pending-reviews__item--placeholder {
+  visibility: hidden;
 }
 
 .pending-reviews__thumbnail {
