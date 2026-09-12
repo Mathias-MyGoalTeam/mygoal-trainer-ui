@@ -4,7 +4,7 @@
 export interface DashboardSummary {
   assignedAthletesCount: number
   pendingVideoReviewsCount: number
-  activeTrainingPlansCount: number
+  todaysActivitiesCount: number
 }
 
 // Preview entry for the Athlete Overview dashboard widget (S02-T4).
@@ -30,4 +30,40 @@ export interface PendingVideoReviewEntry {
   athleteName: string
   status: string
   thumbnailUrl?: string
+}
+
+// Activity type/category, matching mygoal-webapp-ui's ActivityKind enum
+// values 1:1 (see src/types/models.ts there) so a later real API can reuse
+// the same vocabulary. Drives which icon is shown (see
+// src/composables/activityIcons.ts).
+export type ActivityKind =
+  | 'general'
+  | 'joker'
+  | 'trainingsfrei'
+  | 'testwettkampf'
+  | 'wettkampf'
+  | 'laufen'
+  | 'athletik'
+  | 'regeneration'
+  | 'schwimmen'
+  | 'radfahren'
+  | 'allgemeinefitness'
+  | 'alternativtraining'
+  | 'indoorcycling'
+  | 'mtb'
+  | 'rollski'
+  | 'skaten'
+  | 'skilanglauf'
+  | 'yoga'
+
+// Preview entry for the Today's Activities dashboard widget (S03-T1,
+// AP-20). One entry per scheduled activity (an athlete may have more than
+// one on the same day) - sorted/grouped by athlete. `done` is a
+// display-only placeholder flag (no real completion/feedback workflow yet).
+export interface ScheduledActivityEntry {
+  id: string
+  athleteName: string
+  activityKind: ActivityKind
+  title: string
+  done: boolean
 }

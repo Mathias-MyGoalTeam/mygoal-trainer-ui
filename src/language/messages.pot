@@ -3,7 +3,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
 #: src/components/AppNavigation.vue:21
-#: src/views/Dashboard.vue:47
+#: src/views/Dashboard.vue:43
 msgid "Dashboard"
 msgstr ""
 
@@ -26,7 +26,8 @@ msgstr ""
 
 #: src/components/AthleteOverviewWidget.vue:60
 #: src/components/PendingVideoReviewsWidget.vue:39
-#: src/views/Dashboard.vue:61
+#: src/components/TodaysActivitiesWidget.vue:42
+#: src/views/Dashboard.vue:58
 msgid "Lädt…"
 msgstr ""
 
@@ -51,17 +52,22 @@ msgid "Video-Vorschau"
 msgstr ""
 
 #: src/components/PendingVideoReviewsWidget.vue:80
+#: src/components/TodaysActivitiesWidget.vue:89
 msgid "Alle anzeigen"
 msgstr ""
 
-#: src/views/Dashboard.vue:30
-msgid "Aktive Trainingspläne"
+#: src/components/TodaysActivitiesWidget.vue:35
+msgid "Heutige Aktivitäten"
 msgstr ""
 
-#: src/views/Dashboard.vue:35
+#: src/components/TodaysActivitiesWidget.vue:66
+msgid "Erledigt"
+msgstr ""
+
+#: src/views/Dashboard.vue:31
 msgid "Nachrichten"
 msgstr ""
 
-#: src/views/Dashboard.vue:50
+#: src/views/Dashboard.vue:46
 msgid "Dashboard-Widgets"
 msgstr ""

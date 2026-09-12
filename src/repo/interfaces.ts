@@ -3,6 +3,7 @@ import type {
   AthleteOverviewEntry,
   DashboardSummary,
   PendingVideoReviewEntry,
+  ScheduledActivityEntry,
 } from '@/types/dashboard'
 
 export interface TrainerRepository {
@@ -14,4 +15,5 @@ export interface TrainerDashboardRepository {
   getDashboardSummary(): Promise<DashboardSummary>
   getAssignedAthletesOverview(): Promise<AthleteOverviewEntry[]>
   getPendingVideoReviews(): Promise<PendingVideoReviewEntry[]>
+  getTodaysActivities(): Promise<ScheduledActivityEntry[]>
 }

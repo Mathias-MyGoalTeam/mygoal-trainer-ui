@@ -1,14 +1,15 @@
 <script setup lang="ts">
 // Dashboard view wired to TrainerDashboardRepository (mock) for widget
-// data (S02-T3/T4/T5). "Assigned Athletes" and "Pending Video Reviews" are
-// now dedicated widgets; "Messages" remains a title-only placeholder for
-// now - no repository field for it yet.
+// data (S02-T3/T4/T5, S03-T1). "Assigned Athletes", "Pending Video Reviews",
+// and "Today's Activities" are now dedicated widgets; "Messages" remains
+// a title-only placeholder for now - no repository field for it yet.
 import { computed, onMounted } from 'vue'
 import { useGettext } from 'vue3-gettext'
 
 import AthleteOverviewWidget from '@/components/AthleteOverviewWidget.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import PendingVideoReviewsWidget from '@/components/PendingVideoReviewsWidget.vue'
+import TodaysActivitiesWidget from '@/components/TodaysActivitiesWidget.vue'
 import { useDashboardStore } from '@/stores/dashboard'
 
 // Explicit multi-word name so the file can stay `Dashboard.vue` while
@@ -25,11 +26,6 @@ const { $gettext } = useGettext()
 const dashboardStore = useDashboardStore()
 
 const widgets = computed<DashboardWidget[]>(() => [
-  {
-    id: 'active-training-plans',
-    title: $gettext('Aktive Trainingspläne'),
-    value: dashboardStore.summary?.activeTrainingPlansCount,
-  },
   {
     id: 'messages',
     title: $gettext('Nachrichten'),
@@ -50,6 +46,7 @@ onMounted(async () => {
     <section class="dashboard__grid" :aria-label="$gettext('Dashboard-Widgets')">
       <AthleteOverviewWidget class="dashboard__widget" />
       <PendingVideoReviewsWidget class="dashboard__widget" />
+      <TodaysActivitiesWidget class="dashboard__widget" />
 
       <BaseCard v-for="widget in widgets" :key="widget.id" class="dashboard__widget">
         <h2 class="dashboard__widget-title">{{ widget.title }}</h2>

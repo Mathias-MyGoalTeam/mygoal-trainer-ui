@@ -84,6 +84,20 @@ $color-yellow-200: #fdfb96;
 $color-yellow-100: #ffffbf;
 $color-yellow-50: #ffffe2;
 
+// Success/positive states (e.g. "done" indicators). mygoal-webapp-ui uses
+// this same lime scale for success buttons/alerts - added here for S03's
+// Today's Activities widget rather than inventing a new green.
+$color-lime-900: #748624;
+$color-lime-800: #889d2a;
+$color-lime-700: #a0b932;
+$color-lime-600: #b5ce46; // primary lime
+$color-lime-500: #c5d86d;
+$color-lime-400: #d3e291;
+$color-lime-300: #dee9ad;
+$color-lime-200: #e6efc1;
+$color-lime-100: #ecf3d1;
+$color-lime-50: #f1f6dc;
+
 // ---- Spacing (do not add arbitrary in-between values) ---------------------
 $space-80: 80px;
 $space-60: 60px;
