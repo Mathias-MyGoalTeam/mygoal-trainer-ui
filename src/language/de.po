@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/components/AppNavigation.vue:21 src/views/Dashboard.vue:32
+#: src/components/AppNavigation.vue:21 src/views/Dashboard.vue:47
 msgid "Dashboard"
 msgstr ""
 
@@ -25,22 +25,47 @@ msgstr ""
 msgid "Hauptnavigation"
 msgstr ""
 
-#: src/views/Dashboard.vue:22
+#: src/components/AthleteOverviewWidget.vue:53
 msgid "Zugewiesene Athleten"
 msgstr ""
 
-#: src/views/Dashboard.vue:23
-msgid "Anstehende Einheiten"
+#: src/components/AthleteOverviewWidget.vue:60
+#: src/components/PendingVideoReviewsWidget.vue:39 src/views/Dashboard.vue:61
+msgid "Lädt…"
 msgstr ""
 
-#: src/views/Dashboard.vue:24
-msgid "Trainingspläne"
+#: src/components/AthleteOverviewWidget.vue:68
+msgid "Profilbild"
 msgstr ""
 
-#: src/views/Dashboard.vue:25
-msgid "Nachrichten"
+#: src/components/AthleteOverviewWidget.vue:82
+msgid "und %{count} weitere"
+msgstr ""
+
+#: src/components/AthleteOverviewWidget.vue:91
+msgid "Weniger anzeigen"
+msgstr ""
+
+#: src/components/PendingVideoReviewsWidget.vue:32
+msgid "Offene Videoanalysen"
+msgstr ""
+
+#: src/components/PendingVideoReviewsWidget.vue:54
+msgid "Video-Vorschau"
+msgstr ""
+
+#: src/components/PendingVideoReviewsWidget.vue:80
+msgid "Alle anzeigen"
+msgstr ""
+
+#: src/views/Dashboard.vue:30
+msgid "Aktive Trainingspläne"
 msgstr ""
 
 #: src/views/Dashboard.vue:35
+msgid "Nachrichten"
+msgstr ""
+
+#: src/views/Dashboard.vue:50
 msgid "Dashboard-Widgets"
 msgstr ""
