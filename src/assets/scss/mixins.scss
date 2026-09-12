@@ -1,0 +1,61 @@
+// -----------------------------------------------------------------------------
+// Design-token mixins
+// -----------------------------------------------------------------------------
+// Source: adapted (trimmed) from mygoal-webapp-ui's src/assets/scss/mixins.scss.
+// Only the mixins actually used by our base atoms were carried over.
+//
+// Intentionally NOT included: any `breakpoint()`/media-query mixin. This app
+// is desktop-first and the mobile view is a separate, not-yet-built
+// experience (see docs/design-principles.md) - so we avoid baking in
+// mobile-first responsive helpers before that design work happens.
+// -----------------------------------------------------------------------------
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'variables' as *;
+
+// Applies a typography variant (font size) from the shared type scale,
+// combined with an explicit family/weight/line-height.
+@mixin typo($variant: 'body', $family: $font-family-base, $weight: $font-weight-regular, $height: auto) {
+  font-family: $family;
+  font-weight: $weight;
+  line-height: $height;
+
+  $type-scale: (
+    'h1': $font-size-h1,
+    'h2': $font-size-h2,
+    'title': $font-size-title,
+    'body': $font-size-body,
+    'small': $font-size-small,
+    'label': $font-size-label,
+    'caption': $font-size-caption,
+    'extra-small': $font-size-extra-small,
+  );
+
+  @if map.has-key($type-scale, $variant) {
+    font-size: map.get($type-scale, $variant);
+  } @else {
+    @error "Unknown typography variant: #{$variant}. Available variants: #{map.keys($type-scale)}";
+  }
+}
+
+// Shorthand padding mixin accepting 1, 2 or 4 space values (top/right/bottom/left).
+@mixin padding($offsets) {
+  $length: list.length($offsets);
+
+  @if $length == 4 {
+    padding-top: list.nth($offsets, 1);
+    padding-right: list.nth($offsets, 2);
+    padding-bottom: list.nth($offsets, 3);
+    padding-left: list.nth($offsets, 4);
+  } @else if $length == 2 {
+    padding-top: list.nth($offsets, 1);
+    padding-bottom: list.nth($offsets, 1);
+    padding-left: list.nth($offsets, 2);
+    padding-right: list.nth($offsets, 2);
+  } @else if $length == 1 {
+    padding: list.nth($offsets, 1);
+  } @else {
+    @error 'Wrong count of values. Use 1, 2 or 4 values';
+  }
+}

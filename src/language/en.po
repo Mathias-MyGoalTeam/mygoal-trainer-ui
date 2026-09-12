@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/components/AppNavigation.vue:21 src/views/Dashboard.vue:32
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: src/components/AppNavigation.vue:26 src/components/AppNavigation.vue:95
+msgid "Menü schließen"
+msgstr "Close menu"
+
+#: src/components/AppNavigation.vue:26
+msgid "Menü öffnen"
+msgstr "Open menu"
+
+#: src/components/AppNavigation.vue:91
+msgid "Hauptnavigation"
+msgstr "Main navigation"
+
+#: src/views/Dashboard.vue:22
+msgid "Zugewiesene Athleten"
+msgstr "Assigned athletes"
+
+#: src/views/Dashboard.vue:23
+msgid "Anstehende Einheiten"
+msgstr "Upcoming sessions"
+
+#: src/views/Dashboard.vue:24
+msgid "Trainingspläne"
+msgstr "Training plans"
+
+#: src/views/Dashboard.vue:25
+msgid "Nachrichten"
+msgstr "Messages"
+
+#: src/views/Dashboard.vue:35
+msgid "Dashboard-Widgets"
+msgstr "Dashboard widgets"

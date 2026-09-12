@@ -1,0 +1,47 @@
+// -----------------------------------------------------------------------------
+// Global styles entry point
+// -----------------------------------------------------------------------------
+// Forwards the design tokens/mixins so any component can `@use '@/assets/scss'
+// as *` and reach $variables + mixins, and applies minimal global resets.
+//
+// Desktop-first: these resets assume a desktop/laptop viewport by default.
+// No mobile media queries are defined here - the mobile view is a
+// deliberately separate experience to be designed later, not a responsive
+// breakdown of this layout. See docs/design-principles.md.
+// -----------------------------------------------------------------------------
+
+@forward 'variables';
+@forward 'mixins';
+
+@use 'variables' as *;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-family-base;
+  font-weight: $font-weight-regular;
+  color: $color-neutral-900;
+  background: $color-neutral-50;
+  line-height: 1.5;
+  min-width: 320px;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+#app {
+  min-height: 100vh;
+}

@@ -1,0 +1,125 @@
+// -----------------------------------------------------------------------------
+// Design tokens
+// -----------------------------------------------------------------------------
+// Source: adapted from mygoal-webapp-ui's src/assets/scss/variables.scss
+// (see docs/design-principles.md for the full provenance note).
+//
+// Values are copied 1:1 from the reference app so both products share a
+// visual identity. Token *names* were normalized to a `$category-scale`
+// convention for readability in this codebase.
+//
+// These are tokens only - no layout or breakpoint decisions live here.
+// This app is desktop-first (see docs/design-principles.md); do not add
+// mobile-first breakpoint tokens/mixins here without re-reading that doc.
+// -----------------------------------------------------------------------------
+
+// ---- Typography --------------------------------------------------------
+// NOTE: mygoal-webapp-ui self-hosts the OpenSans font family as static
+// woff2/ttf files. Those binary assets were intentionally not copied over
+// in this task (frontend design-tokens-only scope); the font stack below
+// falls back to the system UI font until real font files are added.
+$font-family-base: 'OpenSans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+$font-family-deco: 'Caveat', serif;
+
+$font-weight-light: 200;
+$font-weight-regular: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+// Typography scale (font-size per variant), trimmed to the general-purpose
+// sizes; mygoal-webapp-ui's marketing-only sizes (e.g. `obCounter`,
+// `welcome`, `highlite`) were dropped as out of scope for base tokens.
+$font-size-h1: 32px;
+$font-size-h2: 18px;
+$font-size-title: 24px;
+$font-size-body: 16px; // was "p1"
+$font-size-small: 13px; // was "p2"
+$font-size-label: 12px; // was "input-label"
+$font-size-caption: 12px; // was "c1"
+$font-size-extra-small: 8px;
+
+// ---- Colors --------------------------------------------------------------
+$color-neutral-900: #222526; // main text
+$color-neutral-800: #31393c;
+$color-neutral-700: #3f4c50; // secondary text
+$color-neutral-600: #4e6066;
+$color-neutral-500: #5a6f76;
+$color-neutral-400: #728288;
+$color-neutral-300: #889498;
+$color-neutral-200: #a9adaf;
+$color-neutral-100: #cacccd;
+$color-neutral-50: #f3f3f3; // light background
+$color-neutral-0: #ffffff;
+
+$color-orange-900: #dd5f00;
+$color-orange-800: #e47800;
+$color-orange-700: #eb8700;
+$color-orange-600: #ef9600;
+$color-orange-500: #f3a108; // primary brand accent
+$color-orange-400: #f2ae2c;
+$color-orange-300: #f3bd54;
+$color-orange-200: #ffe2a7;
+$color-orange-100: #fff3d8;
+$color-orange-50: #fbf5e8;
+
+$color-red-500: #ea3546; // severe alerts only
+
+$color-blue-900: #002851;
+$color-blue-800: #00305f;
+$color-blue-700: #003870;
+$color-blue-600: #004284;
+$color-blue-500: #004e9b; // primary blue (focus states, links)
+$color-blue-400: #6390df;
+$color-blue-300: #a4beec;
+$color-blue-200: #cad9f4;
+$color-blue-100: #e0e9f9;
+$color-blue-50: #edf2fb;
+
+$color-yellow-600: #fae025;
+$color-yellow-500: #ffdf00; // primary yellow accent
+$color-yellow-400: #fbf650;
+$color-yellow-300: #fdf871;
+$color-yellow-200: #fdfb96;
+$color-yellow-100: #ffffbf;
+$color-yellow-50: #ffffe2;
+
+// ---- Spacing (do not add arbitrary in-between values) ---------------------
+$space-80: 80px;
+$space-60: 60px;
+$space-48: 48px;
+$space-40: 40px;
+$space-32: 32px;
+$space-24: 24px;
+$space-20: 20px;
+$space-16: 16px;
+$space-12: 12px;
+$space-8: 8px;
+$space-4: 4px;
+
+// ---- Border radius ---------------------------------------------------------
+$radius-xxs: 4px;
+$radius-xs: 8px;
+$radius-smr: 12px;
+$radius-sm: 16px;
+$radius-md: 24px;
+$radius-lg: 40px;
+$radius-xl: 50px;
+$radius-rounded: 50%;
+$radius-circled: 100%;
+
+// ---- Shadows ---------------------------------------------------------------
+$shadow-elevated: 0 4px 28.2px 0 rgba($color-neutral-500, 0.25);
+$shadow-card: 0 12px 30px rgba($color-neutral-900, 0.08);
+
+// ---- Layout ------------------------------------------------------------
+// Desktop-first baseline content width. This app's primary target is
+// desktop/laptop viewports (~1280px and above) - see docs/design-principles.md.
+// Not a breakpoint: just the max-width pages center their content within.
+$container-max-width: 1280px;
+
+// ---- Layering ------------------------------------------------------------
+// Minimal z-index scale - only what's needed so far (the nav drawer). Add to
+// this scale rather than hardcoding new z-index values in components.
+$z-drawer-backdrop: 100;
+$z-drawer: 110;
