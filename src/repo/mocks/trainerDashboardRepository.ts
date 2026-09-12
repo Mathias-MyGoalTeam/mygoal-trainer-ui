@@ -3,6 +3,8 @@ import type {
   AthleteOverviewEntry,
   DashboardSummary,
   PendingVideoReviewEntry,
+  RecentMessageEntry,
+  ScheduledActivityEntry,
 } from '@/types/dashboard'
 
 // Sample values only - no API/DB calls. Field set is provisional and may
@@ -10,7 +12,8 @@ import type {
 const dashboardSummary: DashboardSummary = {
   assignedAthletesCount: 8,
   pendingVideoReviewsCount: 3,
-  activeTrainingPlansCount: 5,
+  todaysActivitiesCount: 5,
+  recentMessagesCount: 4,
 }
 
 // Full mocked roster for the Athlete Overview widget (S02-T4). Matches
@@ -42,6 +45,80 @@ const pendingVideoReviews: PendingVideoReviewEntry[] = [
   { id: 'review-3', athleteName: 'Sophie Bauer', status: 'In Prüfung' },
 ]
 
+// Mocked list for the Messages widget. Conversation state and sending
+// messages are intentionally out of scope; these entries only provide the
+// dashboard preview until a real messaging model is introduced. `avatarUrl`
+// is left unset so the widget falls back to a generic placeholder avatar.
+const recentMessages: RecentMessageEntry[] = [
+  {
+    id: 'message-1',
+    athleteName: 'Lena Hoffmann',
+    preview: 'Das Training heute lief richtig gut!',
+    timestamp: '2h ago',
+  },
+  {
+    id: 'message-2',
+    athleteName: 'Jonas Weber',
+    preview: 'Kannst du bitte den Plan für nächste Woche prüfen?',
+    timestamp: '4h ago',
+  },
+  {
+    id: 'message-3',
+    athleteName: 'Sophie Bauer',
+    preview: 'Ich fühle mich wieder fit für das nächste Training.',
+    timestamp: 'Gestern',
+  },
+  {
+    id: 'message-4',
+    athleteName: 'Mara Vogel',
+    preview: 'Danke für dein Feedback zum letzten Lauf!',
+    timestamp: 'Gestern',
+  },
+]
+
+// Mocked list for the Today's Activities widget (S03-T1, AP-20). Matches
+// todaysActivitiesCount above 1:1. Sorted/grouped by athlete - an athlete
+// can have more than one activity scheduled the same day (see Lena
+// Hoffmann below). `done` is a placeholder flag only - no real
+// completion/feedback workflow yet.
+const todaysActivities: ScheduledActivityEntry[] = [
+  {
+    id: 'activity-1',
+    athleteName: 'Lena Hoffmann',
+    activityKind: 'laufen',
+    title: '5 km lockerer Dauerlauf',
+    done: true,
+  },
+  {
+    id: 'activity-2',
+    athleteName: 'Lena Hoffmann',
+    activityKind: 'athletik',
+    title: 'Rumpfstabilität',
+    done: false,
+  },
+  {
+    id: 'activity-3',
+    athleteName: 'Jonas Weber',
+    activityKind: 'schwimmen',
+    title: 'Techniktraining Kraul',
+    done: false,
+  },
+  {
+    id: 'activity-4',
+    athleteName: 'Sophie Bauer',
+    activityKind: 'regeneration',
+    title: 'Aktive Regeneration',
+    done: true,
+  },
+  {
+    id: 'activity-5',
+    athleteName: 'Mara Vogel',
+    activityKind: 'radfahren',
+    title: 'Grundlagenausdauer',
+    done: false,
+  },
+]
+
 export const mockTrainerDashboardRepository: TrainerDashboardRepository = {
   async getDashboardSummary() {
     return dashboardSummary
@@ -51,5 +128,11 @@ export const mockTrainerDashboardRepository: TrainerDashboardRepository = {
   },
   async getPendingVideoReviews() {
     return pendingVideoReviews
+  },
+  async getRecentMessages() {
+    return recentMessages
+  },
+  async getTodaysActivities() {
+    return todaysActivities
   },
 }

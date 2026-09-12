@@ -9,7 +9,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/components/AppNavigation.vue:21 src/views/Dashboard.vue:47
+#: src/components/AppNavigation.vue:21 src/views/Dashboard.vue:43
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -30,7 +30,8 @@ msgid "Zugewiesene Athleten"
 msgstr "Assigned athletes"
 
 #: src/components/AthleteOverviewWidget.vue:60
-#: src/components/PendingVideoReviewsWidget.vue:39 src/views/Dashboard.vue:61
+#: src/components/PendingVideoReviewsWidget.vue:39
+#: src/components/TodaysActivitiesWidget.vue:42 src/views/Dashboard.vue:58
 msgid "Lädt…"
 msgstr "Loading…"
 
@@ -55,20 +56,28 @@ msgid "Video-Vorschau"
 msgstr "Video preview"
 
 #: src/components/PendingVideoReviewsWidget.vue:80
+#: src/components/TodaysActivitiesWidget.vue:89
 msgid "Alle anzeigen"
 msgstr "View all"
 
-#: src/views/Dashboard.vue:30
-msgid "Aktive Trainingspläne"
-msgstr "Active training plans"
+#: src/components/TodaysActivitiesWidget.vue:35
+msgid "Heutige Aktivitäten"
+msgstr "Today's Activities"
 
-#: src/views/Dashboard.vue:35
+#: src/components/TodaysActivitiesWidget.vue:66
+msgid "Erledigt"
+msgstr "Done"
+
+#: src/views/Dashboard.vue:31
 msgid "Nachrichten"
 msgstr "Messages"
 
-#: src/views/Dashboard.vue:50
+#: src/views/Dashboard.vue:46
 msgid "Dashboard-Widgets"
 msgstr "Dashboard widgets"
+
+#~ msgid "Aktive Trainingspläne"
+#~ msgstr "Active training plans"
 
 #~ msgid "Ausstehende Video-Reviews"
 #~ msgstr "Pending video reviews"
