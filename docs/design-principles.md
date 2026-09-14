@@ -30,10 +30,15 @@ existing design language from that repository:
   above.
 
 **Not ported:** font binary files (OpenSans/Caveat woff2/ttf assets), the
-z-index scale, the activity-variant color theming, and any molecule/
-organism/template-level component (forms, dashboards, page shells). Those
-are either out of scope for a tokens-and-atoms task or need to be designed
-fresh for this app (see below).
+activity-variant color theming, and any molecule/organism/template-level
+component. The z-index scale started the same way (not ported directly),
+but has since been extended locally as overlay components were added
+(`$z-drawer-backdrop`/`$z-drawer`, then `$z-modal-backdrop`/`$z-modal`/
+`$z-toast` — see `variables.scss`); molecules/organisms (`BaseModal`,
+`BaseToast`, `BasePageHeader`, ...) are documented in the "Component
+library" section of the [README](/Users/mathiaspriebe/Documents/mygoal-trainer-ui/README.md).
+Those were either out of scope for the original tokens-and-atoms task or
+needed to be designed fresh for this app (see below).
 
 When extending the token set or adding new atoms, prefer pulling further
 from `mygoal-webapp-ui` over inventing new values, so the two products stay

@@ -10,15 +10,33 @@ import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useGettext } from 'vue3-gettext'
 
+import BaseStatusPill from '@/components/BaseStatusPill.vue'
+
 interface NavLink {
   to: { name: string }
   label: string
+  // Marks pages that are only scaffolded (PageHeader + UnderConstruction,
+  // no real content yet, see S04-T3) so the drawer can flag them as
+  // "coming soon" - this is a hint for the drawer link only, it is not
+  // read by PermissionGuard/routes.ts.
+  comingSoon?: boolean
 }
 
 const { $gettext } = useGettext()
 
-// Add more entries here as real routes are introduced.
-const navLinks = computed<NavLink[]>(() => [{ to: { name: 'dashboard' }, label: $gettext('Dashboard') }])
+// Every page scaffolded so far (S04-T3) is listed here, even the ones that
+// currently only render an UnderConstruction placeholder - the goal is for
+// trainers to already see and click into the full navigation structure.
+const navLinks = computed<NavLink[]>(() => [
+  { to: { name: 'dashboard' }, label: $gettext('Dashboard') },
+  { to: { name: 'athletes' }, label: $gettext('Athleten'), comingSoon: true },
+  { to: { name: 'training-plans' }, label: $gettext('Trainingspläne'), comingSoon: true },
+  { to: { name: 'video-review' }, label: $gettext('Videoanalyse'), comingSoon: true },
+  { to: { name: 'messages' }, label: $gettext('Nachrichten'), comingSoon: true },
+  { to: { name: 'appointments' }, label: $gettext('Termine'), comingSoon: true },
+  { to: { name: 'billing' }, label: $gettext('Abrechnung'), comingSoon: true },
+  { to: { name: 'settings' }, label: $gettext('Profil & Einstellungen'), comingSoon: true },
+])
 
 const isOpen = ref(false)
 const route = useRoute()
@@ -100,7 +118,10 @@ watch(
       <ul class="app-nav-drawer__list">
         <li v-for="link in navLinks" :key="link.label">
           <RouterLink :to="link.to" class="app-nav-drawer__link" @click="close">
-            {{ link.label }}
+            <span>{{ link.label }}</span>
+            <BaseStatusPill v-if="link.comingSoon" variant="warning" class="app-nav-drawer__badge">
+              {{ $gettext('Bald verfügbar') }}
+            </BaseStatusPill>
           </RouterLink>
         </li>
       </ul>
@@ -223,9 +244,16 @@ watch(
   flex-direction: column;
 }
 
+.app-nav-drawer__badge {
+  flex-shrink: 0;
+}
+
 .app-nav-drawer__link {
   @include typo('body', $font-family-base, $font-weight-semibold);
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-12;
   padding: $space-12 $space-24;
   color: $color-neutral-700;
   text-decoration: none;

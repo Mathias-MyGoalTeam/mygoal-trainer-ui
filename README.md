@@ -25,6 +25,61 @@ built on those tokens live in `src/components/`. See
 language comes from and why this app is **desktop-first**, unlike its
 mobile-first sibling app.
 
+### Component library
+
+Beyond `BaseButton`, `BaseInput`, and `BaseCard`, `src/components/` has a
+growing set of reusable, feature-agnostic atoms/molecules/organisms, all
+built on the same design tokens and prefixed `Base*` for consistency (there
+are no `atoms/`/`molecules/`/`organisms/` subfolders - the grouping below is
+informal, only reflected in each component's top-of-file comment). None of
+these are wired into a specific page; each is documented with a minimal
+usage example in its own `<script setup>` comment block.
+
+**Atoms**
+
+- `BaseIcon` - renders an inline SVG (imported with Vite's `?raw` suffix)
+  so it can pick up `currentColor` from surrounding CSS, unlike a plain
+  `<img :src="...">`. Backs every icon used by the components below.
+- `BaseBadge` - small circular status indicator (e.g. the "done" checkmark
+  on the Today's Activities widget); variant only picks a color, callers
+  decide what it means.
+- `BaseStatusPill` - pill-shaped text status label (more expressive than
+  `BaseBadge`), for things like athlete/invoice status - visual only, no
+  status logic.
+- `BaseLoadingSpinner` - CSS-only rotating loading indicator.
+- `BaseSkeletonLoader` - content-shaped shimmer placeholder, an
+  alternative to `BaseLoadingSpinner` for list/table content.
+
+**Molecules**
+
+- `BaseModal` - generic overlay dialog (Teleport, backdrop/Escape close,
+  scroll lock), content passed via slots.
+- `BaseConfirmDialog` - "are you sure?" confirmation pattern built on
+  `BaseModal`.
+- `BaseToast` (+ `useToast()` composable) - app-wide feedback messages
+  (success/error/info/warning). Mount `<BaseToast />` once near the app
+  root, then call `useToast().show(...)` from anywhere.
+- `BaseEmptyState` - "no data yet" placeholder for lists/tables.
+- `BaseUnderConstruction` - placeholder banner/overlay marking a
+  not-yet-built page, to gather early trainer feedback on page structure.
+- `BaseBreadcrumb` - navigation trail for deeper page hierarchies.
+- `BaseFormField` - label + input + error/hint message wrapper for
+  consistent form layout.
+- `BaseDatePicker` / `BaseTimePicker` - styled native date/time inputs for
+  future scheduling/appointment forms.
+
+**Organisms**
+
+- `BasePageHeader` - consistent page title + action buttons layout, so
+  pages don't each build their own header.
+
+**Structural (routing)**
+
+- `src/router/PermissionGuard.vue` (+ `src/router/permissions.ts`) - wraps
+  a route and checks `route.meta.requiredPermission`. In Mocked Mode there
+  is no real auth yet, so `hasPermission()` always returns `true` - this
+  only establishes the pattern for later role-based access control.
+
 ## Data-Hub
 
 The Data-Hub (`src/data-hub/`) is the single point through which the app

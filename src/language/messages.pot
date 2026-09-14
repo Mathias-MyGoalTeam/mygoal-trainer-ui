@@ -2,72 +2,152 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: src/components/AppNavigation.vue:21
-#: src/views/Dashboard.vue:43
+#: src/components/AppNavigation.vue:31
+#: src/views/Dashboard.vue:28
 msgid "Dashboard"
 msgstr ""
 
-#: src/components/AppNavigation.vue:26
-#: src/components/AppNavigation.vue:95
-msgid "Menü schließen"
+#: src/components/AppNavigation.vue:32
+#: src/views/AthleteProfile.vue:29
+#: src/views/Athletes.vue:19
+#: src/views/Athletes.vue:22
+msgid "Athleten"
 msgstr ""
 
-#: src/components/AppNavigation.vue:26
-msgid "Menü öffnen"
+#: src/components/AppNavigation.vue:33
+#: src/views/TrainingPlans.vue:19
+#: src/views/TrainingPlans.vue:22
+msgid "Trainingspläne"
 msgstr ""
 
-#: src/components/AppNavigation.vue:91
-msgid "Hauptnavigation"
+#: src/components/AppNavigation.vue:34
+#: src/views/VideoReview.vue:19
+#: src/views/VideoReview.vue:22
+msgid "Videoanalyse"
 msgstr ""
 
-#: src/components/AthleteOverviewWidget.vue:53
-msgid "Zugewiesene Athleten"
-msgstr ""
-
-#: src/components/AthleteOverviewWidget.vue:60
-#: src/components/PendingVideoReviewsWidget.vue:39
-#: src/components/TodaysActivitiesWidget.vue:42
-#: src/views/Dashboard.vue:58
-msgid "Lädt…"
-msgstr ""
-
-#: src/components/AthleteOverviewWidget.vue:68
-msgid "Profilbild"
-msgstr ""
-
-#: src/components/AthleteOverviewWidget.vue:82
-msgid "und %{count} weitere"
-msgstr ""
-
-#: src/components/AthleteOverviewWidget.vue:91
-msgid "Weniger anzeigen"
-msgstr ""
-
-#: src/components/PendingVideoReviewsWidget.vue:32
-msgid "Offene Videoanalysen"
-msgstr ""
-
-#: src/components/PendingVideoReviewsWidget.vue:54
-msgid "Video-Vorschau"
-msgstr ""
-
-#: src/components/PendingVideoReviewsWidget.vue:80
-#: src/components/TodaysActivitiesWidget.vue:89
-msgid "Alle anzeigen"
-msgstr ""
-
-#: src/components/TodaysActivitiesWidget.vue:35
-msgid "Heutige Aktivitäten"
-msgstr ""
-
-#: src/components/TodaysActivitiesWidget.vue:66
-msgid "Erledigt"
-msgstr ""
-
-#: src/views/Dashboard.vue:31
+#: src/components/AppNavigation.vue:35
+#: src/components/MessagesWidget.vue:43
+#: src/views/Messages.vue:19
+#: src/views/Messages.vue:22
 msgid "Nachrichten"
 msgstr ""
 
-#: src/views/Dashboard.vue:46
+#: src/components/AppNavigation.vue:36
+#: src/views/Appointments.vue:19
+#: src/views/Appointments.vue:22
+msgid "Termine"
+msgstr ""
+
+#: src/components/AppNavigation.vue:37
+#: src/views/Billing.vue:19
+#: src/views/Billing.vue:22
+msgid "Abrechnung"
+msgstr ""
+
+#: src/components/AppNavigation.vue:38
+#: src/views/Settings.vue:19
+#: src/views/Settings.vue:22
+msgid "Profil & Einstellungen"
+msgstr ""
+
+#: src/components/AppNavigation.vue:44
+#: src/components/AppNavigation.vue:113
+msgid "Menü schließen"
+msgstr ""
+
+#: src/components/AppNavigation.vue:44
+msgid "Menü öffnen"
+msgstr ""
+
+#: src/components/AppNavigation.vue:109
+msgid "Hauptnavigation"
+msgstr ""
+
+#: src/components/AppNavigation.vue:123
+msgid "Bald verfügbar"
+msgstr ""
+
+#: src/components/AthleteOverviewWidget.vue:65
+msgid "Zugewiesene Athleten"
+msgstr ""
+
+#: src/components/AthleteOverviewWidget.vue:72
+#: src/components/BaseLoadingSpinner.vue:31
+#: src/components/MessagesWidget.vue:47
+#: src/components/PendingVideoReviewsWidget.vue:56
+#: src/components/TodaysActivitiesWidget.vue:62
+msgid "Lädt…"
+msgstr ""
+
+#: src/components/AthleteOverviewWidget.vue:80
+msgid "Profilbild"
+msgstr ""
+
+#: src/components/AthleteOverviewWidget.vue:100
+msgid "und %{count} weitere"
+msgstr ""
+
+#: src/components/AthleteOverviewWidget.vue:109
+msgid "Weniger anzeigen"
+msgstr ""
+
+#: src/components/BaseConfirmDialog.vue:77
+msgid "Abbrechen"
+msgstr ""
+
+#: src/components/BaseConfirmDialog.vue:83
+msgid "Bestätigen"
+msgstr ""
+
+#: src/components/BaseModal.vue:130
+#: src/components/BaseToast.vue:53
+msgid "Schließen"
+msgstr ""
+
+#: src/components/MessagesWidget.vue:71
+#: src/components/PendingVideoReviewsWidget.vue:99
+#: src/components/TodaysActivitiesWidget.vue:97
+msgid "Alle anzeigen"
+msgstr ""
+
+#: src/components/PendingVideoReviewsWidget.vue:49
+msgid "Offene Videoanalysen"
+msgstr ""
+
+#: src/components/PendingVideoReviewsWidget.vue:67
+msgid "Video-Vorschau"
+msgstr ""
+
+#: src/components/TodaysActivitiesWidget.vue:55
+msgid "Heutige Aktivitäten"
+msgstr ""
+
+#: src/components/TodaysActivitiesWidget.vue:81
+msgid "Erledigt"
+msgstr ""
+
+#: src/router/PermissionGuard.vue:41
+msgid "Du hast keinen Zugriff auf diese Seite."
+msgstr ""
+
+#: src/views/Appointments.vue:23
+#: src/views/AthleteProfile.vue:38
+#: src/views/Athletes.vue:23
+#: src/views/Billing.vue:23
+#: src/views/Messages.vue:23
+#: src/views/Settings.vue:23
+#: src/views/TrainingPlans.vue:23
+#: src/views/VideoReview.vue:23
+msgid "Diese Seite befindet sich im Aufbau."
+msgstr ""
+
+#: src/views/AthleteProfile.vue:25
+#: src/views/AthleteProfile.vue:30
+#: src/views/AthleteProfile.vue:37
+msgid "Athletenprofil"
+msgstr ""
+
+#: src/views/Dashboard.vue:31
 msgid "Dashboard-Widgets"
 msgstr ""

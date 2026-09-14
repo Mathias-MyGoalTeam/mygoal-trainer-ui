@@ -17,9 +17,12 @@
 import { computed } from 'vue'
 import { useGettext } from 'vue3-gettext'
 
+import checkIcon from '@/assets/svg/icons/check.svg?raw'
 import { activityIcons } from '@/composables/activityIcons'
+import BaseBadge from '@/components/BaseBadge.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
+import BaseIcon from '@/components/BaseIcon.vue'
 import { DASHBOARD_WIDGET_PREVIEW_LIMIT } from '@/composables/dashboardWidgetPreview'
 import { useDashboardStore } from '@/stores/dashboard'
 
@@ -72,27 +75,13 @@ const placeholderCount = computed(() =>
           <span class="todays-activities__activity-title">{{ activity.title }}</span>
         </div>
 
-        <span
+        <BaseBadge
           v-if="activity.done"
-          class="todays-activities__done"
-          role="img"
+          variant="success"
           :aria-label="$gettext('Erledigt')"
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M20 6L9 17L4 12"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
+          <BaseIcon :svg="checkIcon" size="xsmall" />
+        </BaseBadge>
       </li>
       <li
         v-for="n in placeholderCount"
@@ -172,23 +161,6 @@ const placeholderCount = computed(() =>
 .todays-activities__activity-title {
   @include typo('small', $font-family-base, $font-weight-regular);
   color: $color-neutral-500;
-}
-
-.todays-activities__done {
-  width: 20px;
-  height: 20px;
-  border-radius: $radius-circled;
-  background: $color-lime-600;
-  color: $color-neutral-0;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    width: 12px;
-    height: 12px;
-  }
 }
 
 .todays-activities__view-all {
