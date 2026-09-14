@@ -133,7 +133,13 @@ $shadow-card: 0 12px 30px rgba($color-neutral-900, 0.08);
 $container-max-width: 1280px;
 
 // ---- Layering ------------------------------------------------------------
-// Minimal z-index scale - only what's needed so far (the nav drawer). Add to
-// this scale rather than hardcoding new z-index values in components.
+// Minimal z-index scale - add to this scale rather than hardcoding new
+// z-index values in components. Layers are ordered low -> high: drawer,
+// then modal (sits above the drawer, e.g. a confirm dialog opened from a
+// drawer action), then toast (always on top so feedback is never hidden
+// behind an open modal).
 $z-drawer-backdrop: 100;
 $z-drawer: 110;
+$z-modal-backdrop: 200;
+$z-modal: 210;
+$z-toast: 300;

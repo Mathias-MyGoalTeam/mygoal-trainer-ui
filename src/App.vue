@@ -2,9 +2,14 @@
 import { RouterView } from 'vue-router'
 
 import AppNavigation from '@/components/AppNavigation.vue'
+import PermissionGuard from '@/router/PermissionGuard.vue'
 </script>
 
 <template>
   <AppNavigation />
-  <RouterView />
+  <RouterView v-slot="{ Component }">
+    <PermissionGuard>
+      <component :is="Component" />
+    </PermissionGuard>
+  </RouterView>
 </template>
