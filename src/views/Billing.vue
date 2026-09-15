@@ -17,6 +17,7 @@ import BaseFilterBar from '@/components/BaseFilterBar.vue'
 import BasePageHeader from '@/components/BasePageHeader.vue'
 import BasePagination from '@/components/BasePagination.vue'
 import BaseStatusPill from '@/components/BaseStatusPill.vue'
+import { multiSelectFilter } from '@/types/table'
 
 // Explicit multi-word name so the file can stay `Billing.vue` while
 // satisfying the vue/multi-word-component-names lint rule.
@@ -80,6 +81,7 @@ const columns = computed(() => [
   columnHelper.accessor('invoiceNumber', {
     header: $gettext('Rechnungsnr.'),
     filterFn: 'includesString',
+    size: 160,
     meta: {
       filterVariant: 'text',
       filterLabel: $gettext('Rechnungsnr. durchsuchen'),
@@ -87,14 +89,22 @@ const columns = computed(() => [
   }),
   columnHelper.accessor('athleteName', {
     header: $gettext('Athlet'),
+    filterFn: 'includesString',
+    size: 200,
+    meta: {
+      filterVariant: 'text',
+      filterLabel: $gettext('Athleten durchsuchen'),
+    },
   }),
   columnHelper.accessor('amount', {
     header: $gettext('Betrag'),
+    size: 120,
     cell: (info) => currencyFormatter.format(info.getValue()),
   }),
   columnHelper.accessor('status', {
     header: $gettext('Status'),
-    filterFn: 'equalsString',
+    filterFn: multiSelectFilter,
+    size: 140,
     cell: (info) =>
       h(BaseStatusPill, { variant: statusPillVariant[info.getValue()] }, () => statusLabels.value[info.getValue()]),
     meta: {
@@ -108,6 +118,7 @@ const columns = computed(() => [
   }),
   columnHelper.accessor('dueDate', {
     header: $gettext('Fällig am'),
+    size: 140,
     cell: (info) => dateFormatter.format(new Date(info.getValue())),
   }),
 ])

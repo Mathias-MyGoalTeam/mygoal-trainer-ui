@@ -17,6 +17,7 @@ import BaseFilterBar from '@/components/BaseFilterBar.vue'
 import BasePageHeader from '@/components/BasePageHeader.vue'
 import BasePagination from '@/components/BasePagination.vue'
 import BaseStatusPill from '@/components/BaseStatusPill.vue'
+import { multiSelectFilter } from '@/types/table'
 
 // Explicit multi-word name so the file can stay `Athletes.vue` while
 // satisfying the vue/multi-word-component-names lint rule.
@@ -31,27 +32,27 @@ interface AthleteRow {
   name: string
   discipline: string
   status: AthleteStatus
-  nextSessionDate: string
+  email: string
 }
 
 // Small illustrative dataset only, enough rows to exercise sorting,
 // filtering, and pagination (BaseDataTable's default page size is 10) -
 // not sourced from the Data-Hub/a repository.
 const athletes: AthleteRow[] = [
-  { id: '1', name: 'Lea Hoffmann', discipline: 'Laufen', status: 'active', nextSessionDate: '2026-09-16' },
-  { id: '2', name: 'Jonas Weber', discipline: 'Schwimmen', status: 'paused', nextSessionDate: '2026-09-20' },
-  { id: '3', name: 'Mara Schulz', discipline: 'Radfahren', status: 'active', nextSessionDate: '2026-09-15' },
-  { id: '4', name: 'Finn Becker', discipline: 'Triathlon', status: 'active', nextSessionDate: '2026-09-18' },
-  { id: '5', name: 'Nina Fischer', discipline: 'Laufen', status: 'inactive', nextSessionDate: '2026-10-02' },
-  { id: '6', name: 'Paul Krüger', discipline: 'Skilanglauf', status: 'active', nextSessionDate: '2026-09-17' },
-  { id: '7', name: 'Emma Wolf', discipline: 'Schwimmen', status: 'paused', nextSessionDate: '2026-09-22' },
-  { id: '8', name: 'Ben Richter', discipline: 'Athletik', status: 'active', nextSessionDate: '2026-09-19' },
-  { id: '9', name: 'Sophie Klein', discipline: 'Radfahren', status: 'active', nextSessionDate: '2026-09-16' },
-  { id: '10', name: 'Luca Schmidt', discipline: 'Triathlon', status: 'inactive', nextSessionDate: '2026-10-05' },
-  { id: '11', name: 'Mia Neumann', discipline: 'Laufen', status: 'active', nextSessionDate: '2026-09-21' },
-  { id: '12', name: 'Noah Schwarz', discipline: 'Rollski', status: 'paused', nextSessionDate: '2026-09-25' },
-  { id: '13', name: 'Ella Zimmermann', discipline: 'Skilanglauf', status: 'active', nextSessionDate: '2026-09-14' },
-  { id: '14', name: 'Anton Braun', discipline: 'Athletik', status: 'active', nextSessionDate: '2026-09-23' },
+  { id: '1', name: 'Lea Hoffmann', discipline: 'Laufen', status: 'active', email: 'lea.hoffmann@example.com' },
+  { id: '2', name: 'Jonas Weber', discipline: 'Schwimmen', status: 'paused', email: 'jonas.weber@example.com' },
+  { id: '3', name: 'Mara Schulz', discipline: 'Radfahren', status: 'active', email: 'mara.schulz@example.com' },
+  { id: '4', name: 'Finn Becker', discipline: 'Triathlon', status: 'active', email: 'finn.becker@example.com' },
+  { id: '5', name: 'Nina Fischer', discipline: 'Laufen', status: 'inactive', email: 'nina.fischer@example.com' },
+  { id: '6', name: 'Paul Krüger', discipline: 'Skilanglauf', status: 'active', email: 'paul.krueger@example.com' },
+  { id: '7', name: 'Emma Wolf', discipline: 'Schwimmen', status: 'paused', email: 'emma.wolf@example.com' },
+  { id: '8', name: 'Ben Richter', discipline: 'Athletik', status: 'active', email: 'ben.richter@example.com' },
+  { id: '9', name: 'Sophie Klein', discipline: 'Radfahren', status: 'active', email: 'sophie.klein@example.com' },
+  { id: '10', name: 'Luca Schmidt', discipline: 'Triathlon', status: 'inactive', email: 'luca.schmidt@example.com' },
+  { id: '11', name: 'Mia Neumann', discipline: 'Laufen', status: 'active', email: 'mia.neumann@example.com' },
+  { id: '12', name: 'Noah Schwarz', discipline: 'Rollski', status: 'paused', email: 'noah.schwarz@example.com' },
+  { id: '13', name: 'Ella Zimmermann', discipline: 'Skilanglauf', status: 'active', email: 'ella.zimmermann@example.com' },
+  { id: '14', name: 'Anton Braun', discipline: 'Athletik', status: 'active', email: 'anton.braun@example.com' },
 ]
 
 const statusLabels = computed<Record<AthleteStatus, string>>(() => ({
@@ -66,8 +67,6 @@ const statusPillVariant: Record<AthleteStatus, 'success' | 'warning' | 'neutral'
   inactive: 'neutral',
 }
 
-const dateFormatter = new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })
-
 const columnHelper = createColumnHelper<AthleteRow>()
 
 // Recomputed via `computed` (rather than a plain const) so column
@@ -76,6 +75,7 @@ const columns = computed(() => [
   columnHelper.accessor('name', {
     header: $gettext('Name'),
     filterFn: 'includesString',
+    size: 220,
     meta: {
       filterVariant: 'text',
       filterLabel: $gettext('Name durchsuchen'),
@@ -83,10 +83,20 @@ const columns = computed(() => [
   }),
   columnHelper.accessor('discipline', {
     header: $gettext('Sportart'),
+    filterFn: multiSelectFilter,
+    size: 160,
+    meta: {
+      filterVariant: 'select',
+      filterLabel: $gettext('Sportart'),
+      filterOptions: [...new Set(athletes.map((athlete) => athlete.discipline))]
+        .sort()
+        .map((discipline) => ({ value: discipline, label: discipline })),
+    },
   }),
   columnHelper.accessor('status', {
     header: $gettext('Status'),
-    filterFn: 'equalsString',
+    filterFn: multiSelectFilter,
+    size: 140,
     cell: (info) =>
       h(BaseStatusPill, { variant: statusPillVariant[info.getValue()] }, () => statusLabels.value[info.getValue()]),
     meta: {
@@ -98,9 +108,14 @@ const columns = computed(() => [
       })),
     },
   }),
-  columnHelper.accessor('nextSessionDate', {
-    header: $gettext('Nächste Einheit'),
-    cell: (info) => dateFormatter.format(new Date(info.getValue())),
+  columnHelper.accessor('email', {
+    header: $gettext('E-Mail'),
+    filterFn: 'includesString',
+    size: 220,
+    meta: {
+      filterVariant: 'text',
+      filterLabel: $gettext('E-Mail durchsuchen'),
+    },
   }),
 ])
 

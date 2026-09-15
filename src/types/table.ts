@@ -7,7 +7,12 @@
 // hardcoded "status"/"trainer_id"/etc. anywhere in the shared components).
 // The page/feature that owns the column definitions is the only place that
 // fills these in.
-import type { RowData } from '@tanstack/vue-table'
+import type { Row, RowData } from '@tanstack/vue-table'
+
+/** Matches a scalar cell value against any of the selected filter options. */
+export function multiSelectFilter<TData extends RowData>(row: Row<TData>, columnId: string, filterValue: unknown) {
+  return Array.isArray(filterValue) && filterValue.includes(row.getValue(columnId))
+}
 
 declare module '@tanstack/vue-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -23,4 +28,3 @@ declare module '@tanstack/vue-table' {
 // Turns this file into a module (rather than an ambient global script), so
 // the `declare module` above augments the real `@tanstack/vue-table`
 // package instead of leaking a same-named global augmentation.
-

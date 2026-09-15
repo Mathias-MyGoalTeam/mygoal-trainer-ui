@@ -27,6 +27,7 @@ import { FlexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel
 import chevronRightIcon from '@/assets/svg/icons/chevron-right.svg?raw'
 import BaseEmptyState from '@/components/BaseEmptyState.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
+import { useColumnWidths } from '@/composables/useColumnWidths'
 
 const props = withDefaults(
   defineProps<{
@@ -82,10 +83,19 @@ const table = useVueTable({
 })
 
 emit('tableReady', table)
+
+// Column widths come from each column's `size` (ColumnDef.size, see
+// src/views/Athletes.vue/Billing.vue) via the shared useColumnWidths
+// composable, so BaseFilterBar can render its per-column controls at these
+// same pixel widths - see src/components/BaseFilterBar.vue.
+const { columnWidths } = useColumnWidths(() => table)
 </script>
 
 <template>
   <table class="base-data-table">
+    <colgroup>
+      <col v-for="column in columnWidths" :key="column.id" :style="{ width: `${column.size}px` }" />
+    </colgroup>
     <thead>
       <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
         <th
@@ -130,6 +140,10 @@ emit('tableReady', table)
 .base-data-table {
   width: 100%;
   border-collapse: collapse;
+  // Fixed layout makes the <colgroup> widths (driven by column.getSize())
+  // authoritative, instead of the browser deriving widths from cell
+  // content - required so BaseFilterBar can align to the same widths.
+  table-layout: fixed;
 }
 
 .base-data-table__head-cell {
@@ -189,6 +203,11 @@ emit('tableReady', table)
   @include typo('body', $font-family-base, $font-weight-regular);
   @include padding($space-12 $space-16);
   color: $color-neutral-900;
+  // table-layout: fixed no longer lets content grow the column, so clip
+  // overflow instead of letting it break the fixed width.
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .base-data-table__empty-cell {
